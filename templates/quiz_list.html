@@ -1,0 +1,56 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Quiz
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="text-center mt-5" align="center">
+<h3>
+    Quizes
+</h3>
+</div>
+{% if valid %}
+<div class="col-md-5 mx-auto mt-5" align="center">
+<a href={% url 'quiz_create' course.id %} class="btn btn-dark">Create Quiz</a>
+</div>
+{% endif %}
+<div class="filter col-md-10 mx-auto mt-5">
+  <form method="POST">
+  {% csrf_token %}
+  <input class="form-control" type="text" name="filter" placeholder="Search By Term">
+  <button type="submit" class="btn btn-info mt-3">Search</button>
+  </form>
+</div>
+{% if valid_user %}
+<table class="table table-striped mt-5">
+  <thead>
+    <tr>
+    <th scope="col">Added On</th>
+    <th scope="col">Unlocks At</th>
+    <th scope="col">Title</th>
+    <th scope="col">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for quiz in quizes %}
+    <tr>
+    <td>{{ quiz.0.timestamp | date:"SHORT_DATE_FORMAT" }}</td>
+    <td>{{ quiz.0.enable|date:"D d M Y" }} {{ quiz.0.enable|time:"H:i" }}</td>
+    <td>{{ quiz.0.title }}</td>
+    {% if quiz.1 %}
+        <td><a href={% url 'quiz_display' course_id quiz.0.id %} class="btn btn-info disabled" role="button" aria-disabled="true">Give Quiz</a></td>
+    {% else %}
+        <td><a href={% url 'quiz_display' course_id quiz.0.id %} class="btn btn-info">Give Quiz</a></td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h3>You haven't subscribed to this course.</h3>
+{%endif %}
+</div>
+{% endblock %}

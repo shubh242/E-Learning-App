@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} CodeEd | Home {% endblock %}
+
+{% block content %}
+<img src="{% static "images/Cover.jpg" %}" alt="" style="height: 10%;width: 100%;">
+<div class="container">
+<div class="block mt-5 mx-5" >
+    <div class="row">
+      <div style="margin-right:10px;">
+        <img src="{% static "images/sticker.png" %}" class="border rounded" style="height: 100%;width: 30%;float: left;margin-right: 5%;">
+        <h5 class="align-middle mt-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti possimus temporibus atque nihil eum odio. Quam explicabo aperiam ab tempora deleniti veniam ipsum natus quibusdam saepe temporibus officia, ullam, nulla tempore placeat! Unde asperiores modi nihil aperiam. Voluptates quos assumenda esse nesciunt amet, exercitationem quia doloremque repudiandae, delectus cumque veniam.</h5>
+      </div>
+   </div>
+</div>
+
+<div class="col-md-5 mx-auto text-center mt-5"><h2 class="align-center">Latest Subjects</h2></div>
+
+<div class="row mb-5" style="background-color: #dafbff;">
+    {% for subject in subjects %}
+    <div class="col-md-4 my-4">
+        <div class="card border rounded border-info">
+        <div class="card-body text-center">
+            {% if subject.thumbnail %}
+              <img src={{subject.thumbnail.url}} class="card-img-top mb-4 border rounded" alt={{subject.name}}>
+            {% endif %}
+            <h3 class="card-title">{{subject.name | title}}</h3>
+            <h5 class="card-body">{{subject.description}}</h5>
+                <a href={% url 'course_listed' subject.id %} class="btn btn-primary col-md-10 mx-auto" align="center">Check Out Courses</a>
+        </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+    
+    
+<div class="col-md-5 mx-auto text-center mt-5 mb-5"><h2 class="align-center">Latest Courses</h2></div>
+<div class="border rounded">
+<div class="row" style="background-color:#ecf0f1;">
+    {% for course in courses %}
+    <div class="col-md-4 my-4">
+        <div class="card border rounded border-success">
+        <div class="card-body text-center">
+            <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">{{course.teacher.all.0.name}}</span></h5>
+            {% if course.thumbnail %}
+                <img src={{course.thumbnail.url}} class="card-img-top border rounded mb-4" alt={{course.name}}>
+            {% endif %}
+            <h5 class="card-title">{{course.name}}</h5>
+            {% if flag %}
+                <a href={% url 'upload_list' course.id %} class="btn btn-primary col-md-10 mx-auto" align="center">Go To Course</a>
+            {% else %}
+            <a href="#" class="btn btn-primary col-md-10 mx-auto" align="center">Please contact admin for subscription</a>
+            {% endif %}
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div> 
+</div>  
+</div> 
+{% endblock %}

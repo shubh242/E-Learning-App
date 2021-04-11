@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Courses
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="heading col-md-10 mt-5 mx-auto" align="center">
+<h2>Your Courses</h2>
+</div>
+{% if valid %}
+<div class="col-md-12 mx-auto mt-5" align="center">
+<a href={% url 'create_course' %} class="btn btn-dark">Create Course</a>
+</div>
+{% endif %}
+<div class="row">
+{% for course in courses %}
+<div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body text-center">
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">{{course.teacher.all.0.name}}</span></h5>
+        {% if course.thumbnail %}
+            <img src={{course.thumbnail.url}} class="card-img-top border rounded mb-4" alt={{course.name}}>
+        {% endif %}
+        <h5 class="card-title">{{course.name}}</h5>
+        <a href={% url 'upload_list' course.id %} class="btn btn-primary col-md-10 mx-auto" align="center">Go To Course</a>
+    </div>
+    </div>
+    </div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

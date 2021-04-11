@@ -1,0 +1,46 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+Event|Schedule
+{% endblock %}
+
+{% block content %}
+
+{% if valid %}
+<div class="col-md-5 mx-auto mt-5" align="center">
+<a href={% url 'event_create' course.id %} class="btn btn-dark">Create Event</a>
+</div>
+{% endif %}
+
+<div class="table-responsive mt-5">
+{% if valid_user %}
+<table class="table table-hover table-dark">
+    <tbody>
+        <tr>
+          {% for event in events %}
+          {% ifchanged event.0.event_timestamp|date:'D' %}
+          <tr>
+            <th scope="row" class="align-middle"><h5>{{event.0.event_timestamp|date:'D'}}</h5><h6>{{event.0.event_timestamp|date:'d-m'}}</h6></th>
+          {% endifchanged %}
+          <td>
+            <div class="content p-5 text-center">
+              <label for="card-text" style="display: inline;"></label>
+              <h4 class="card-title">{{event.0.name}} </h4>
+              <h6>{{event.0.event_timestamp|date:'H:i'}}-{{event.0.event_timestamp_end|time:'H:i'}}</h8>
+              <p class="card-text">{{event.0.description}}</p>
+              <div align="center"> 
+                <a href= {{event.2.link}}  class="btn btn-info">Go to seminar</a>
+              </div>
+            </div>
+          </td>
+          {% endfor %}
+        </tr>
+      </tr>
+    </tbody>
+  </table>
+  {% else %}
+  <h3>You haven't subscribed to this course. </h3>
+  {% endif %}
+</div>
+{% endblock %}

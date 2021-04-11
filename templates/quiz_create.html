@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Quiz
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% if valid %}
+<div class="col-md-10 mx-auto mt-5">
+<form method="POST">
+    {% csrf_token %}
+    <input class="form-control" type="text" placeholder="Title" name="name"> <br>
+    <input class="form-control" type="text" placeholder="URL of the Form" name="url"> <br>
+    <label for="exampleFormControlSelect2">When is the Quiz Scheduled For?</label>
+    <div class="mb-3">
+        <input type="datetime-local" name = "quiz_start">
+    </div>
+    <button type="submit" class="btn btn-info mb-2">Post Form</button>
+</form>
+</div>
+{% else %}
+<div class="text-center col-md-10 mx-auto">
+<h4>You don't have the access to create forms.</h4>
+</div>
+{% endif %}
+</div>
+{% endblock %}

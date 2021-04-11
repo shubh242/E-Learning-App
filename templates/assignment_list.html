@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Assignments
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% if valid %}
+<div class="row col-md-12">
+<div class="col-md-10 mx-auto text-center mt-5">
+<h3 align="center">Assignments</h3>
+{% if valid_teacher %}
+<a href={% url 'create_assignment' course.id %} target="_blank" class="btn btn-dark my-3">Create Assignments</a>
+{% endif %}
+</div>
+{% for assign in assignments %}
+<div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body text-center">
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">{{assign.teacher.name}}</span></h5>
+        <h5 class="card-title">{{assign.name}}</h5>
+        <a href={{assign.files.url}} target="_blank" class="btn btn-primary my-3">Attached File</a>
+        <form method="POST" action={% url 'submit_assignment' assign.id %} enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div class="form-group border rounded border-primary px-2">
+            <label for="exampleFormControlFile1" class="pt-2"><h5>Submission</h5></label>
+            <input type="file" class="form-control-file btn btn-info rounded mb-2" id="exampleFormControlFile1" name="{{assign.id}}files">
+            <input type="number" class="form-control-file d-none" value={{assign.id}} name="assignment">
+            <input type="number" class="form-control-file d-none" value={{assign.course.id}} name="course">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<h1>You haven't Subscribed For this Course.</h1>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Notifications
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% if valid_teacher %}
+<div class=" col-md-10 mx-auto mt-5 mb-5">
+<h2 align="center"> Questions </h2>
+</div>
+{% for notif in notifications %}
+<div class="card mt-3">
+  <div class="card-body">
+    <h5>{{notif.post.question}}</h5>
+    <a href={% url 'post_detail' notif.post.id %} class="btn btn-info stretched-link">Check Out The Question</a>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+{% if valid_student %}
+<div class="row row-cols-1 row-cols-md-3 mb-5"> 
+{% for upload in uploads %}
+    {% if upload.file_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">{{upload.course.name}}</span></h5>
+        <h5 class="card-title" align="center"><span class="badge badge-warning badge-pill">Files</span></h5>
+        <p class="card-text">{{upload.file_upload.description}}</p>
+        <a href={% url 'view_file' upload.course.id %} class="btn btn-info">Go To Files</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.event_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">{{upload.course.name}}</span></h5>
+        <h5 class="card-title" align="center"><span class="badge badge-success badge-pill">Events</span></h5>
+        <h5 class="card-title">{{upload.event_upload.name}}</h5>
+        <p class="card-text">{{upload.event_upload.description}}</p>
+        <a href={% url 'event_schedule' upload.course.id %} class="btn btn-info">Go to Schedule</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.seminar_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">{{upload.course.name}}</span></h5>
+        <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">Events</span></h5>
+        <h5 class="card-title">{{upload.seminar_upload.name}}</h5>
+        <p class="card-text">{{upload.seminar_upload.description}}</p>
+        <a href={% url 'event_schedule' upload.course.id %} class="btn btn-info">Go to Schedule</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.quiz_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">{{upload.course.name}}</span></h5>
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">Quiz</span></h5>
+        <h5 class="card-title">{{upload.quiz_upload.title}}</h5>
+        <a href={% url 'quiz_list' upload.course.id %} class="btn btn-info">Go to Quizes</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.message_upload %}
+        <div class="col-md-12 mt-5 ">
+            <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">{{upload.course.name}}</span></h5>
+            <div class="card col-md-10 p-2 mx-auto">
+            <div class="card-header bg-info" style="color: white;">
+                Message
+            </div>
+            <div class="card-body">
+                <p>{{upload.message_upload.content}}</p>
+                <blockquote class="blockquote mb-0">
+                <footer class="blockquote-footer">From <cite title="Source Title">{{upload.message_upload.user}}</cite></footer>
+                </blockquote>
+            </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+</div>
+{% else %}
+<h3 align="center" class="col-md-10 mx-auto"> You have no notifactions / haven't logged in yet.</h3>
+{% endif %}
+{% endif %}
+</div>
+{% endblock %}

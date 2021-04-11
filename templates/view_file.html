@@ -1,0 +1,54 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Files
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+<div class="heading mt-5" align="center">
+  <h1>Files</h1>
+</div>
+{% if valid %}
+<div class="col-md-5 mx-auto mt-5" align="center">
+<a href={% url 'file_list' course.id %} class="btn btn-dark">Upload File</a>
+</div>
+{% endif %}
+<div class="filter col-md-10 mx-auto mt-5">
+{% if valid_user %}
+  <form method="POST">
+  {% csrf_token %}
+  <input class="form-control" type="text" name="filter" placeholder="Search By Term">
+  <button type="submit" class="btn btn-info mt-2">Search</button>
+  </form>
+</div>
+{% for file_instance in files %}
+<div class="card-deck text-center">
+    <div class="card mt-5 col-md-8 mx-auto border border-primary rounded" >
+      <div class="card-body">
+        <h5 class="card-title">{{file_instance.0.name}}</h5>
+        <p class="card-text">{{file_instance.0.description}}</p>
+        <div align="center">
+        {% for attachment in file_instance.1 %}
+          {% if attachment.attach %}
+          <a href={{attachment.attach.url}}  class="btn btn-info mt-2" target="_blank">{{attachment.name}}</a>
+          {% else %}
+          <a href={% url 'show_read' attachment.id %}  class="btn btn-info mt-2" target="_blank">{{attachment.name}}</a>
+          {% endif %}
+        {% endfor %}
+        </div>
+        <h5 class="card-title" align="center"><span class="badge badge-primary mt-3 badge-pill">{{file_instance.0.teacher.name}}</span></h5>
+      </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<h3>You havent Subscibed to this Course.</h3>
+{% endif %}
+</div>
+
+
+{% endblock %}

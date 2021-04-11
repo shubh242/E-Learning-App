@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Login
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="mx-auto col-md-10">
+{{confirm}}
+</div>
+<form method="POST" action={% url 'check_otp' user.id otp %}>
+{% csrf_token %}
+<div class="form-group col-md-10 mx-auto" align="center">
+<input class="form-control" type="text" name="otp" placeholder="Enter OTP">
+<button type="submit" class="btn btn-primary mt-3">Submit</button>
+</div>
+</form>
+</div>
+{% endblock %}

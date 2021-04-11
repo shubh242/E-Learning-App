@@ -1,0 +1,47 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Seminars
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="heading mt-5" align="center">
+<h1>
+Seminar
+</h1>
+<div class="filter col-md-10 mx-auto mt-5">
+  <form method="POST">
+  {% csrf_token %}
+  <input class="form-control" type="text" name="filter" placeholder="Search By Term">
+  <button type="submit" class="btn btn-info mt-3">Search</button>
+  </form>
+</div>
+</div>
+{% if valid %}
+<div class="col-md-5 mx-auto mt-5" align="center">
+<a href={% url 'quiz_create' course.id %} class="btn btn-dark">Create Seminar</a>
+</div>
+{% endif %}
+{% if valid_user %}
+<div class="row">
+{% for seminar in Seminars %}
+    <div class="mt-5 border border-primary rounded col-md-3 text-center offset-md-1">
+    <div class="content p-4">
+      <h5 class="card-title">{{seminar.name}} </h5>
+      <p class="card-text">{{seminar.description}}</p>
+      <div align="center"> 
+        <a href={% url 'seminar_detail' course.id seminar.id %}  class="btn btn-info">Go to seminar</a>
+      </div>
+    </div>
+    </div>
+{% endfor %}
+</div>
+{% else %}
+<h3>You havent subscribed to this course.</h3>
+{% endif %}
+</div>
+
+
+{% endblock %}

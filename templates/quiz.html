@@ -1,0 +1,13 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Quizes
+{% endblock %}
+
+{% block content %}
+<div class="container mb-5" align="center">
+<div class="col-md-10 mx-auto mt-5 mb-4" align="center"><h3>{{quiz.title}}</h3></div>
+<iframe src={{quiz.embed_link}} width="800" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+</div>
+{% endblock %}

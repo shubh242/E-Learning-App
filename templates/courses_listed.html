@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Courses
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="heading col-md-10 p-5 mx-auto" align="center">
+<div class="card p-5 border rounded border-success">
+<h2 class="card-title">Courses in {{subject.name}}</h2>
+<div class="card-body">
+    <h5>{{subject.description}}</h5>
+</div>
+</div>
+</div>
+<div class="filter col-md-10 mx-auto mt-5">
+  <form method="POST">
+  {% csrf_token %}
+  <input class="form-control" type="text" name="filter" placeholder="Search By Term">
+  <button type="submit" class="btn btn-info mt-2">Search</button>
+  </form>
+</div>
+<div class="row mb-5">
+{% if courses %}
+{% for course in courses %}
+<div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body text-center">
+        {% if course.thumbnail %}
+            <img src={{course.thumbnail.url}} class="card-img-top mb-4 border rounded" alt={{course.name}}>
+        {% endif %}
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">{{course.teacher.all.0.name}}</span></h5>
+        <h5 class="card-title">{{course.name}}</h5>
+        <a href='#' class="btn btn-primary col-md-10 mx-auto" align="center">Subscribe</a>
+    </div>
+    </div>
+    </div>
+{% endfor %}
+{% else %}
+<div class="col-md-10 mx-auto text-center" align="center">
+    <h3>No Courses for this Subject are available at the moment.</h3>
+    <br>
+    <a href={% url 'subjects_listed' %} class="btn btn-danger col-md-10 mx-auto" align="center">Go Back To Subjects</a>
+</div>
+{% endif %}
+</div>
+</div>
+{% endblock %}

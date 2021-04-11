@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CodeEd | Course
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="heading col-md-10 mx-auto text-center mt-5">
+<h2>Create Course</h2>
+</div>
+<div class="col-md-10 mx-auto mt-5">
+{% if valid %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="textArea" text-align : center><h5 text-align:center>Enter Course Name</h5> </label>
+        <input class="form-control form-control-md" type="text" placeholder="Name" name='name'>
+    </div>
+    <label for="exampleFormControlSelect2" class="mt-5"><h5>Select Subject</h5></label>
+    <select multiple class="form-control" id="exampleFormControlSelect2" name='subject'>
+        {% for subject in subjects %}
+            <option value={{subject.id}}>{{subject.name}}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <div class="form-group">
+    <label for="exampleFormControlFile1">Thumbnail</label>
+    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="thumbnail">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-outline-success" style="margin-top: 2%;">Create</button>
+</form>
+{% else %}
+<h3>You are not authorized to create courses.</h3>
+{% endif %}
+</div>
+</div>
+{% endblock %}

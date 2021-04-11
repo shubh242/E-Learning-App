@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} 
+{% endblock %}
+
+{% block course %}
+<nav class="navbar navbar-expand-sm navbar-light bg-light border border-info rounded col-md-9 mx-auto mt-5">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav col-md-12 mx-auto">
+      <li class="nav-item">
+        <a class="nav-link ml-4" href={% url 'upload_list' course.id %}><button type="button" class="btn btn-dark">&nbsp;Uploads</button></a>
+      </li>
+      <li class="nav-item ml-5">
+        <a class="nav-link" href={% url 'view_file' course.id %}><button type="button" class="btn btn-dark">&nbsp;&nbsp;Files&nbsp;&nbsp;</button></a>
+      </li>
+      <li class="nav-item ml-5">
+        <a class="nav-link" href={% url 'quiz_list' course.id %}><button type="button" class="btn btn-dark">&nbsp;Quizes&nbsp;</button></a>
+      </li>
+      <li class="nav-item ml-5">
+        <a class="nav-link" href={% url 'seminar' course.id %}><button type="button" class="btn btn-dark">Seminars</button></a>
+      </li>
+      <li class="nav-item ml-5">
+        <a class="nav-link" href={% url 'event_schedule' course.id %}><button type="button" class="btn btn-dark">&nbsp;Schedule&nbsp;</button></a>
+      </li>
+      <li class="nav-item ml-5">
+        <a class="nav-link" href={% url 'assignment_list' course.id %}><button type="button" class="btn btn-dark">&nbsp;Assignments&nbsp;</button></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

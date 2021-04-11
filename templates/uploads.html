@@ -1,0 +1,111 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Uploads
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<form method='POST' class="mt-5 mb-3">
+    {% csrf_token %}
+    <div class="form-group">
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="message" placeholder="Message"></textarea>
+    <button type="submit" class="btn btn-primary mb-5 mt-2">Send Message</button>
+    </div>
+</form>
+<div class="row row-cols-1 row-cols-md-3 mb-5"> 
+{% if valid_user %}
+{% for upload in uploads %}
+    {% if upload.file_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-warning badge-pill">Files</span></h5>
+        <p class="card-text">{{upload.file_upload.description}}</p>
+        <a href={% url 'view_file' course.id %} class="btn btn-info">Go To Files</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.event_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-success badge-pill">Events</span></h5>
+        <h5 class="card-title">{{upload.event_upload.name}}</h5>
+        <p class="card-text">{{upload.event_upload.description}}</p>
+        <a href={% url 'event_schedule' course.id %} class="btn btn-info">Go to Schedule</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.seminar_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-dark badge-pill">Events</span></h5>
+        <h5 class="card-title">{{upload.seminar_upload.name}}</h5>
+        <p class="card-text">{{upload.seminar_upload.description}}</p>
+        <a href={% url 'event_schedule' course.id %} class="btn btn-info">Go to Schedule</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.quiz_upload %}
+    <div class="col-md-4 mt-4">
+    <div class="card border rounded border-success">
+    <div class="card-body">
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">Quiz</span></h5>
+        <h5 class="card-title">{{upload.quiz_upload.title}}</h5>
+        <a href={% url 'quiz_list' course.id %} class="btn btn-info">Go to Quizes</a>
+    </div>
+    </div>
+    </div>
+    {% endif %}
+    {% if upload.message_upload %}
+        <div class="col-md-12 mt-5 ">
+            <div class="card col-md-10 p-2 mx-auto">
+            <div class="card-header bg-info" style="color: white;">
+                Message
+            </div>
+            <div class="card-body">
+                <p>{{upload.message_upload.content}}</p>
+                <blockquote class="blockquote mb-0">
+                <footer class="blockquote-footer">From <cite title="Source Title">{{upload.message_upload.user}}</cite></footer>
+                </blockquote>
+            </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if upload.post_upload %}
+    <div class="card col-md-5 position-static p-4 pl-md-0 mt-4 border border-info rounded mx-auto text-center">
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">Question</span></h5>
+        <h5 class="mt-5">{{upload.post_upload.question}}</h5>
+        <div align="center" class="mt-5">
+            <a href={% url 'upload_like' course.id upload.post_upload.id %} class="btn btn-primary">
+            Likes <span class="badge badge-light">{{ upload.post_upload.likes.count }}</span>
+            </a>
+            <a href={% url 'post_detail' upload.post_upload.id %} class="btn btn-info">Go to Question</a>
+        </div>
+    </div>
+    {% endif %}
+    {% if upload.assignment_upload %}
+    <div class="card col-md-5 position-static p-4 pl-md-0 mt-4 border border-info rounded mx-auto text-center">
+        <h5 class="card-title" align="center"><span class="badge badge-info badge-pill">Assignment</span></h5>
+        <h5 class="mt-5">{{upload.assignment_upload.name}}</h5>
+        <h6 class="mt-5">{{upload.assignment_upload.description}}</h6>
+        <a class="btn btn-info">Go to Assignments</a>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+{% else %}
+<div class="text-center" align="center">
+<h3>You haven't subscribed to this course.</h3>
+</div>
+{% endif %}
+</div>
+
+{% endblock%}

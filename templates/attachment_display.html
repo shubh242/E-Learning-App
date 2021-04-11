@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Attachment
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="card border-dark col-md-10 mx-auto mb-3 mt-5 p-3">
+  <div class="card-header bg bg-primary text-white"><h5>Attachment</h5></div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{attachment.name}}</h5>
+    <p class="card-text">{{content}}</p>
+  </div>
+</div>
+</div>
+{% endblock %}

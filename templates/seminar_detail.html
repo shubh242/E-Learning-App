@@ -1,0 +1,38 @@
+{% extends 'base_extended.html' %}
+{% load static %}
+
+{% block title %}
+CodeEd | Seminar
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-10 mx-auto mt-5" align="center">
+        <h1>{{seminar.name}}</h1>
+    </div>
+    <div class="video col-md-10 mx-auto center p-5 mb-5" align="center">
+        <video class="col-md-8 mx-auto border border border-dark rounded bg-secondary p-2" controls>
+            <source src={{url}} type="video/mp4">
+        </video>
+    </div>
+    <form method='POST' class="mt-5 mb-3">
+        {% csrf_token %}
+        <div class="form-group">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" placeholder="Comment"></textarea>
+        <button type="submit" class="btn btn-info mb-5 mt-2">Comment</button>
+        </div>
+    </form>
+    <div class="comments col-md-10 mx-auto mb-5">
+    <h2 class="card-title" align="center"><span class="badge badge-success">Comments</span></h2>
+    <ul class="list-group list-group-flush mt-3">
+    {% for comment in comments %}
+        <div class="card mb-2">
+        <li class="list-group-item ">{{comment.content}}
+            <footer class="blockquote-footer">By <cite title="Source Title">{{comment.user}}</cite></footer>
+        </li>
+        </div>
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endblock %}
