@@ -1,6 +1,6 @@
-<font size = "10"> E-Learning-App </font> <br>
+<font size = "20"> E-Learning-App </font> <br>
 This project is for a **Learning Management System Portal** (LMS)<br> 
-In this project my team created an **E-Learning webapp** which includes manny features such as:- 
+In this project my team created an **E-Learning webapp** which includes manny features such as:- <br>
 <ol>
   <li>There are three signup portal for student, parent and teacher.</li> 
   <li>If parent might be gaving any doubt the parent can contact the teacher and vice verse.</li>
