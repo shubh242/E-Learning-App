@@ -1,4 +1,4 @@
-<font size = "20"> E-Learning-App </font> <br>
+# E-Learning-App <br>
 This project is for a **Learning Management System Portal** (LMS)<br> 
 In this project my team created an **E-Learning webapp** which includes manny features such as:- <br>
 <ol>
